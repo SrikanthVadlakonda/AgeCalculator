@@ -1,0 +1,134 @@
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <style>
+        *{
+    margin:0;
+    padding: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+.container{
+    width: 100%;
+    min-height: 100vh;
+    padding: 10px;
+    background:linear-gradient(rgb(146, 146, 252),rgb(179, 177, 177));
+   
+    
+}
+.calculate{
+height: 300px;
+    width: 100%;
+    max-width: 600px;
+    margin-left: 300px;
+    margin-top: 100px;
+    background-color: white;
+    border-radius: 15px;
+    
+    
+   }
+   .calculate h1{
+    font-size: 40px;
+    color: orange;
+    text-align: center;
+    
+    
+   }
+
+.input-data{
+    margin: 40px 20px;
+    padding: 35px;
+    border-radius: 10px;
+    background: rgba(69, 9, 209, 0.836);
+    display: flex;
+    align-items: center;
+}
+.input-data input{
+    flex: 1;
+    margin-right: 20px;
+    padding: 14px 20px;
+    border: 0;
+    outline: 0;
+    font-size: 18px;
+    border-radius: 5px;
+    position: relative;
+}
+.input-data button{
+    background:rgb(124, 173, 10);
+    border-radius: 10px;
+    border: none;
+    padding: 15px 30px;
+    font-weight: 500;
+    color: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    cursor: pointer;
+}
+#result{
+    color: orangered;
+    font-size: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-left: 50px;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="calculate">
+            <h1>Age Calculator</h1>
+            <div class="input-data">
+                <input type="date" id="date">
+                <button onclick="calculateAge()">Calculate</button>
+            </div>
+            <p id="result"></p>
+        </div>
+    </div>
+    
+    <script>
+        let userInput = document.getElementById("date");
+        userInput.max = new Date().toISOString().split("T")[0];
+        let result = document.getElementById("result");
+
+        function calculateAge(){
+            let birthDate = new Date(userInput.value);
+
+            let d1 = birthDate.getDate();
+            let m1 = birthDate.getMonth() + 1;
+            let y1 = birthDate.getFullYear();
+
+
+            let today = new Date();
+
+            let d2 = today.getDate();
+            let m2 = today.getMonth() + 1;
+            let y2 = today.getFullYear();
+
+            let d3, m3, y3;
+
+            y3=y2 - y1;
+
+            if(m2 >=m1){
+                m3=m2 - m1;
+            }else{
+                y3--;
+                m3 = 12 + m2 - m1;
+            }
+
+            if(d2 >= d1){
+                d3 = d2 - d1;
+            }else{
+               m3--;
+               d3 = getDaysInMonth(y1, m1) + d2 - d1;
+            }
+          
+           result.textContent = `-->You are ${y3} years, ${m3} months and ${d3} days old`;
+   }
+
+   function getDaysInMonth(year, month){
+    return new Date (year, month, 0).getDate();
+   }
+    </script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            box-sizing: border-box;
+        }
+        .container {
+            width: 100%;
+            min-height: 100vh;
+            padding: 10px;
+        }
+        .calculate {
+            width: 100%;
+            max-width: 600px;
+            margin: 10% auto; /* Center align */
+            text-align: center; /* Center align text */
+        }
+        .calculate h1 {
+            font-size: 40px;
+            color: orange;
+        }
+        .input-data {
+            margin: 40px 0;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(44, 40, 40, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center align items */
+        }
+        .input-data input {
+            flex: 1;
+            margin-right: 20px;
+            padding: 10px;
+            border: 0;
+            outline: 0;
+            font-size: 18px;
+            border-radius: 5px;
+            text-align: center; /* Center align text */
+        }
+        .input-data button {
+            background: #ffff76;
+            border: 0;
+            outline: 0;
+            padding: 12px 24px;
+            font-weight: 500;
+            color: #333;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="calculate">
+            <h1>Age Calculator</h1>
+            <div class="input-data">
+                <input type="date" id="date">
+                <button onclick="calculateAge()">Calculate</button>
+            </div>
+            <p id="result"></p>
+        </div>
+    </div>
+
+    <script>
+        let userInput = document.getElementById("date");
+        userInput.max = new Date().toISOString().split("T")[0];
+        let result = document.getElementById("result");
+
+        function calculateAge() {
+            let birthDate = new Date(userInput.value);
+            let today = new Date();
+
+            // Calculate age
+            let age = calculateDifference(today, birthDate);
+
+            result.textContent = `You are ${age.years} years, ${age.months} months, and ${age.days} days old`;
+        }
+
+        function calculateDifference(date1, date2) {
+            let diff = date1.getTime() - date2.getTime();
+            let ageDate = new Date(diff);
+
+            let years = ageDate.getUTCFullYear() - 1970;
+            let months = ageDate.getUTCMonth();
+            let days = ageDate.getUTCDate() - 1;
+
+            return { years, months, days };
+        }
+    </script>
+</body>
+</html>
